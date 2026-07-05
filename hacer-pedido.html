@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacer Pedido - AromaVirtual</title>
+    <style>
+        :root {
+            --dark-coffee: #2C1E16;
+            --brown: #5C4033;
+            --beige: #F5F5DC;
+            --gold: #D4AF37;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--beige);
+            color: var(--dark-coffee);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: var(--dark-coffee);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        nav .logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+        nav ul li a {
+            color: var(--beige);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        .form-container {
+            max-width: 550px;
+            margin: 3rem auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-top: 5px solid var(--gold);
+        }
+        .form-container h2 {
+            text-align: center;
+            color: var(--brown);
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-coffee);
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-submit {
+            background-color: var(--gold);
+            color: var(--dark-coffee);
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        .btn-submit:hover {
+            background-color: #bfa133;
+        }
+        footer {
+            background-color: var(--dark-coffee);
+            color: var(--beige);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">AromaVirtual</a>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="hacer-pedido.html">Hacer Pedido</a></li>
+            <li><a href="panel-pedidos.html">Panel del Barista</a></li>
+        </ul>
+    </nav>
+
+    <div class="form-container">
+        <h2>Tu Pedido de Café</h2>
+        <form action="/api/pedidos" method="POST">
+            <div class="form-group">
+                <label for="cliente">Nombre del Cliente</label>
+                <input type="text" id="cliente" name="cliente" class="form-control" placeholder="Ej. Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo_cafe">Tipo de Café</label>
+                <select id="tipo_cafe" name="tipo_cafe" class="form-control" required>
+                    <option value="" disabled selected>Selecciona tu café...</option>
+                    <option value="Espresso">Espresso</option>
+                    <option value="Cappuccino">Cappuccino</option>
+                    <option value="Latte">Latte</option>
+                    <option value="Americano">Americano</option>
+                    <option value="Mocaccino">Mocaccino</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tamaño</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="tamano_alto" name="tamano" value="Alto" required>
+                        <label for="tamano_alto">Alto</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="tamano_grande" name="tamano" value="Grande">
+                        <label for="tamano_grande">Grande</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="tamano_venti" name="tamano" value="Venti">
+                        <label for="tamano_venti">Venti</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notas">Notas Especiales (Opcional)</label>
+                <textarea id="notas" name="notas" class="form-control" rows="3" placeholder="Ej. Leche deslactosada, extra caliente, sin azúcar..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Confirmar y Enviar Pedido</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>Universidad Laica Eloy Alfaro de Manabí - Facultad de Ciencias de la Vida y Tecnológicas - 2026</p>
+    </footer>
+
+</body>
+</html>

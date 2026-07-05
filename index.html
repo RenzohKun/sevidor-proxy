@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AromaVirtual - Cafetería ULEAM</title>
+    <style>
+        :root {
+            --dark-coffee: #2C1E16;
+            --brown: #5C4033;
+            --beige: #F5F5DC;
+            --gold: #D4AF37;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--beige);
+            color: var(--dark-coffee);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: var(--dark-coffee);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        nav .logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+        nav ul li a {
+            color: var(--beige);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        .hero {
+            background: linear-gradient(rgba(44, 30, 22, 0.8), rgba(92, 64, 51, 0.8)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1600&q=80') center/cover;
+            color: var(--beige);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        .hero h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        .btn {
+            background-color: var(--gold);
+            color: var(--dark-coffee);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #bfa133;
+            transform: scale(1.05);
+        }
+        .menu-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .menu-section h2 {
+            color: var(--brown);
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .menu-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--gold);
+            transition: transform 0.3s;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        .menu-item h3 {
+            color: var(--dark-coffee);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .menu-item .price {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin: 1rem 0;
+        }
+        footer {
+            background-color: var(--dark-coffee);
+            color: var(--beige);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">AromaVirtual</a>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="hacer-pedido.html">Hacer Pedido</a></li>
+            <li><a href="panel-pedidos.html">Panel del Barista</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>AromaVirtual</h1>
+        <p>El mejor café de la ULEAM directo a tu mesa</p>
+        <a href="hacer-pedido.html" class="btn">Hacer tu Pedido Ahora</a>
+    </header>
+
+    <section class="menu-section">
+        <h2>Menú de Especialidades</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Espresso</h3>
+                <p>Intenso, aromático y con cuerpo. La esencia pura del café para despertar todos tus sentidos antes de clases.</p>
+                <div class="price">$1.50</div>
+            </div>
+            <div class="menu-item">
+                <h3>Cappuccino</h3>
+                <p>El equilibrio perfecto entre un shot de espresso, leche vaporizada y una rica capa de espuma aterciopelada.</p>
+                <div class="price">$2.25</div>
+            </div>
+            <div class="menu-item">
+                <h3>Latte</h3>
+                <p>Suave y cremoso. Un shot de espresso envuelto en abundante y dulce leche vaporizada.</p>
+                <div class="price">$2.50</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Universidad Laica Eloy Alfaro de Manabí - Facultad de Ciencias de la Vida y Tecnológicas - 2026</p>
+    </footer>
+
+</body>
+</html>

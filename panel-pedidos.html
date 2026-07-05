@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Barista - AromaVirtual</title>
+    <style>
+        :root {
+            --dark-coffee: #2C1E16;
+            --brown: #5C4033;
+            --beige: #F5F5DC;
+            --gold: #D4AF37;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--beige);
+            color: var(--dark-coffee);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: var(--dark-coffee);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        nav .logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+        nav ul li a {
+            color: var(--beige);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        .panel-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-top: 5px solid var(--brown);
+            width: 90%;
+        }
+        .panel-container h2 {
+            text-align: center;
+            color: var(--dark-coffee);
+            margin-top: 0;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        thead {
+            background-color: var(--brown);
+            color: var(--beige);
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        tbody tr:hover {
+            background-color: #f9f6f0;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background-color: var(--gold);
+            color: var(--dark-coffee);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .refresh-btn {
+            background-color: var(--dark-coffee);
+            color: var(--beige);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .refresh-btn:hover {
+            background-color: var(--brown);
+        }
+        footer {
+            background-color: var(--dark-coffee);
+            color: var(--beige);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">AromaVirtual</a>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="hacer-pedido.html">Hacer Pedido</a></li>
+            <li><a href="panel-pedidos.html">Panel del Barista</a></li>
+        </ul>
+    </nav>
+
+    <div class="panel-container">
+        <h2>Panel de Control - Barista</h2>
+        <button class="refresh-btn" onclick="cargarPedidos()">↻ Actualizar Pedidos</button>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Café Seleccionado</th>
+                        <th>Tamaño</th>
+                        <th>Notas Especiales</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-pedidos">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem;">Cargando pedidos de la base de datos...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Universidad Laica Eloy Alfaro de Manabí - Facultad de Ciencias de la Vida y Tecnológicas - 2026</p>
+    </footer>
+
+    <script>
+        async function cargarPedidos() {
+            const tbody = document.getElementById('tabla-pedidos');
+            try {
+                const response = await fetch('/api/pedidos');
+                if (!response.ok) {
+                    throw new Error('Error en la petición');
+                }
+                const pedidos = await response.json();
+                
+                tbody.innerHTML = ''; 
+                
+                if (pedidos.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No hay pedidos en la cola.</td></tr>';
+                    return;
+                }
+
+                pedidos.forEach(pedido => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${pedido.cliente}</strong></td>
+                        <td>${pedido.tipo_cafe}</td>
+                        <td>${pedido.tamano}</td>
+                        <td>${pedido.notas || '<span style="color: #999;">Ninguna</span>'}</td>
+                        <td><span class="status-badge">${pedido.estado || 'Recibido'}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: red; padding: 2rem;">Error de conexión. Asegúrate de que el servidor Node.js esté corriendo.</td></tr>';
+            }
+        }
+
+        // Cargar automáticamente cuando se abre la página
+        window.addEventListener('DOMContentLoaded', cargarPedidos);
+    </script>
+</body>
+</html>
