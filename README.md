@@ -1,30 +1,26 @@
-# Sevidor-Proxy
+# ☕ AromaVirtual - Sistema de Gestión de Cafetería en 3 Capas
 
-# Configuración de un Servidor Proxy Inverso con Apache y Node.js
+¡Bienvenido a **AromaVirtual**! Este es un proyecto académico de fin de ciclo desarrollado para la materia de **Sistemas Operativos** en la **Universidad Laica Eloy Alfaro de Manabí (ULEAM)**. 
 
-Este repositorio contiene la entrega correspondiente a la **Práctica de Laboratorio: Configuración de un Servidor Proxy Inverso con Apache** para la materia de Sistemas Operativos.
+El sistema consiste en una aplicación web robusta estructurada en una arquitectura de **tres capas**, utilizando un Proxy Inverso con Apache, un Backend dinámico en Node.js y persistencia de datos en MongoDB. La temática está ambientada en una cafetería virtual para realizar y gestionar pedidos de café en tiempo real.
 
-## 👥 Integrantes
-* Bailón Paredes Francis Joseph
-* Vasconez Lopez Angel Francisco
-* Pinoargote Holguin Carlos Alfredo
-* Pacheco Olivo Enoc Elias
+---
 
-## 📋 Objetivo de la Práctica
-Aprender a configurar Apache como un servidor proxy inverso en Rocky Linux para redirigir solicitudes entrantes a una aplicación backend desarrollada en Node.js, ocultando la infraestructura interna y mejorando la seguridad del despliegue.
+## 🏛️ Arquitectura del Sistema (3 Capas)
 
-## 🛠️ Tecnologías y Herramientas Utilizadas
-* **Sistema Operativo:** Rocky Linux 9 (Virtualizado en Oracle VM VirtualBox)
-* **Servidor Web / Proxy Inverso:** Apache HTTP Server (`httpd`)
-* **Entorno de Ejecución:** Node.js (Versión 20) + Express Framework
-* **Base de Datos:** MongoDB
+La aplicación web está distribuida estratégicamente para garantizar la seguridad, escalabilidad y separación de responsabilidades:
 
-## 🔄 Arquitectura del Sistema
-El flujo de las solicitudes dentro del entorno configurado funciona de la siguiente manera:
+1. **Capa de Presentación (Frontend - Puerto 80):** Interfaces modernas y responsivas construidas en HTML5 y CSS3, con una paleta de colores corporativa (tonos marrón, crema y dorado). Servida a través del servidor web Apache.
+2. **Capa de Aplicación (Backend - Puerto 3000):** Un servidor lógico en Node.js que expone una API REST utilizando Express. Se encarga de procesar las peticiones del cliente y comunicarse con la base de datos.
+3. **Capa de Datos (Base de Datos - Puerto 27017):** Instancia local de MongoDB que almacena los registros de todos los pedidos ingresados de manera persistente en formato NoSQL (JSON/BSON).
 
-1. **Cliente:** El usuario realiza una petición desde el navegador web ingresando a la dirección IP de la máquina virtual por el puerto estándar **80** (`http://<IP_DE_LA_VM>`).
-2. **Proxy Inverso (Apache):** Apache intercepta la solicitud en el puerto 80. Gracias a las directivas `ProxyPass` y `ProxyPassReverse`, redirige internamente el tráfico.
-3. **Backend (Node.js):** El servidor de Node.js, que se ejecuta de forma interna en el puerto **3000**, procesa la solicitud y responde al proxy, exponiendo los datos de forma segura.
+---
 
-## 📁 Estructura del Repositorio
-- En proceso
+## 📁 Estructura de Archivos del Proyecto
+
+```bash
+├── index.html           # Página inicial / Portada de la cafetería con el menú destacado
+├── hacer-pedido.html    # Formulario dinámico para el ingreso de nuevos pedidos de café
+├── panel-pedidos.html   # Panel de control del Barista que lee y lista los pedidos desde MongoDB
+├── app.js               # Código del servidor Backend de Node.js (Rutas, API y conexión a base de datos)
+└── README.md            # Documentación técnica del proyecto (Este archivo)
