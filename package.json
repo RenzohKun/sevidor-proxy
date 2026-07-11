@@ -1,0 +1,13 @@
+{
+  "name": "aromavirtual-cafeteria",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de cafetería en 3 capas",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0"
+  }
+}
