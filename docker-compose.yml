@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  # Tu aplicación de Node.js
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017/cafeteria_uleam
+
+  # Tu base de datos (Ejemplo con MongoDB)
+  db:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
